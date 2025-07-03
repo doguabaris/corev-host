@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  corev:
+    build: .
+    container_name: corev-host
+    ports:
+      - "8080:8080"   # API
+      - "3001:3001"   # Dashboard
+    env_file:
+      - .env
+    restart: unless-stopped

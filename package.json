@@ -1,0 +1,68 @@
+{
+  "name": "@corev/host",
+  "description": "Monorepo for Corev's web-based configuration management service, including backend API and frontend dashboard.",
+  "version": "0.1.0-alpha.1",
+  "type": "module",
+  "bin": {
+    "corev-host": "./bin/corev-host.js"
+  },
+  "workspaces": [
+    "packages/dashboard",
+    "packages/server"
+  ],
+  "author": {
+    "name": "Doğu Abaris",
+    "email": "abaris@null.net",
+    "url": "https://doguabaris.bio"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doguabaris/corev-host.git"
+  },
+  "bugs": {
+    "url": "https://github.com/doguabaris/corev-host/issues"
+  },
+  "homepage": "https://corev.dev",
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "dotenv": "^17.0.1",
+    "express": "^4.21.2",
+    "figlet": "^1.8.1",
+    "next": "^15.3.4",
+    "ora": "^8.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/figlet": "^1.7.0",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.35.1",
+    "@typescript-eslint/parser": "^8.35.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.3.4",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "svgo": "^4.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development tsx bin/corev-host.ts",
+    "build": "tsc -p tsconfig.json && npm run --workspace packages/dashboard build && npm run --workspace packages/server build",
+    "prestart": "npm run build",
+    "start": "NODE_ENV=production node ./dist/corev-host.js",
+    "lint": "next lint --fix",
+    "optimize:svg": "svgo packages/dashboard/public/**/*.svg",
+    "format": "prettier --write .",
+    "format:all": "prettier --write . && eslint . --ext .ts,.tsx,.js,.mjs --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:server",
+    "test:server": "NODE_ENV=test NODE_OPTIONS='--no-deprecation' jest --config packages/server/jest.config.ts",
+    "test:dashboard": "echo \"No dashboard tests yet\" && exit 0"
+  }
+}
